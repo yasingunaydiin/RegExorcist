@@ -2,12 +2,12 @@
 
 RegExorcist is a tool designed to remove specific words and regular expressions from documents.
 
-# Features
+## Features
 
 - Cleanse text documents of unwanted words regular expressions.
 - Easy-to-use interface.
 
-# Usage
+## Usage
 
 1. Open the python code in Python.
 2. Edit the text you want to remove.

@@ -17,8 +17,19 @@ def toggle_regex():
     global use_regex
     use_regex = not use_regex
 
-# Default setting for regular expressions
-use_regex = True
+
+remove_numbers = False
+remove_non_letters = False 
+
+# Function to toggle the state of remove_numbers
+def toggle_remove_numbers():
+    global remove_numbers
+    remove_numbers = not remove_numbers
+
+# Function to toggle the state of remove_non_letters
+def toggle_remove_non_letters():
+    global remove_non_letters
+    remove_non_letters = not remove_non_letters
 
 
 # Function to process text
@@ -31,26 +42,22 @@ def process_text():
     with open(input_file, 'r', encoding='utf-8') as file:
         text = file.read()
 
-    text = text.replace('*', '* ')
+    # text = text.replace('*', '* ')
 
     for word in words_to_remove:
         text = text.replace(word, '')
     for pattern in regex_to_remove:
         text = re.sub(pattern, '', text)
+    if remove_numbers:
+        text = re.sub(r'\d', '', text)  # Remove numbers if checkbox is checked
+    if remove_non_letters:
+        text = re.sub(r'[^a-zA-Z\s]', '', text)  # Remove non-letter characters if checkbox is checked
 
     with open(output_file, 'w', encoding='utf-8') as file:
         file.write(text)
 
     word_count = len(text.split())
     messagebox.showinfo("Task Complete", f"The process is complete.\nWord count: {word_count}")
-
-# Function to count words
-def count_words():
-    input_file = input_file_entry.get()
-    with open(input_file, 'r', encoding='utf-8') as file:
-        text = file.read()
-    word_count = len(text.split())
-    word_count_label.config(text=f"Word count: {word_count}")
 
 
 # GUI
@@ -59,7 +66,7 @@ window.title('RegExorcist')
 
 
 
-icon = tk.PhotoImage(file="regexorcistmedium.png")
+icon = tk.PhotoImage(file="regexorcist_logo.png")
 window.iconphoto(True, icon)
 
 
@@ -108,6 +115,7 @@ input_file_label = ctk.CTkLabel(
     text_color=('#252525', '#f4f4f4')
     )
 input_file_label.grid(row=0, column=0, padx=10, pady=5)
+
 input_file_entry = ctk.CTkEntry(
     window,
     width=150,
@@ -115,6 +123,7 @@ input_file_entry = ctk.CTkEntry(
     border_color='#e6e6e6'
     )
 input_file_entry.grid(row=0, column=1, padx=10, pady=5)
+
 input_file_button = ctk.CTkButton(
     window,
     text="Browse",
@@ -133,6 +142,7 @@ output_file_label = ctk.CTkLabel(
     text_color=('#252525', '#f4f4f4')
     )
 output_file_label.grid(row=1, column=0, padx=10, pady=5)
+
 output_file_entry = ctk.CTkEntry(
     window,
     width=150,
@@ -140,6 +150,7 @@ output_file_entry = ctk.CTkEntry(
     border_color='#e6e6e6'
     )
 output_file_entry.grid(row=1, column=1, padx=10, pady=5)
+
 output_file_button = ctk.CTkButton(
     window,
     text="Browse",
@@ -154,10 +165,11 @@ output_file_button.grid(row=1, column=2, padx=10, pady=5)
 # Text Entry Widget
 label = ctk.CTkLabel(
     window,
-    text="Add word:",
+    text="Specific:",
     text_color=('#252525', '#f4f4f4')
     )
 label.grid(row=2, column=0, padx=10, pady=5)
+
 entry = ctk.CTkEntry(
 window,
 width=150,
@@ -178,22 +190,6 @@ add_button = ctk.CTkButton(
     )
 add_button.grid(row=2, column=2, padx=10, pady=5)
 
-# Checkbox for Regular Expressions
-regex_checkbox_var = tk.BooleanVar()
-regex_checkbox = ctk.CTkCheckBox(
-    window, 
-    text="Remove Regular Expressions", 
-    variable=regex_checkbox_var, 
-    command=toggle_regex,
-    text_color=('#252525', '#f4f4f4'),
-    border_width=2,
-    border_color='#e6e6e6',
-    checkbox_height=20,
-    checkbox_width=20,
-    hover='#fff'
-)
-regex_checkbox.grid(row=3, column=1, padx=10, pady=5)
-
 # Button to Process Text
 process_button = ctk.CTkButton(
     window,
@@ -205,23 +201,36 @@ process_button = ctk.CTkButton(
 )
 process_button.grid(row=4, column=1, padx=10, pady=5)
 
-# Button to Count Words
-count_button = ctk.CTkButton(
-    window,
-    text="Count Words",
-    command=count_words,
-    fg_color=('#e6e6e6', '#3e3f3f'),
+# Checkbox for removing numbers
+remove_numbers_checkbox_var = tk.BooleanVar()
+remove_numbers_checkbox = ctk.CTkCheckBox(
+    window, 
+    text="0-9", 
+    variable=remove_numbers_checkbox_var, 
+    command=toggle_remove_numbers,
     text_color=('#252525', '#f4f4f4'),
-    hover='#000'
+    border_width=2,
+    border_color='#e6e6e6',
+    checkbox_height=20,
+    checkbox_width=20,
+    hover='#fff'
 )
-count_button.grid(row=5, column=1, padx=10, pady=5)
+remove_numbers_checkbox.grid(row=3, column=0, padx=10, pady=5)
 
-# Label to display word count
-word_count_label = ctk.CTkLabel(
-    window,
-    text="Word count: ",
-    text_color=('#252525', '#f4f4f4')
+# Checkbox for removing non-letter characters
+remove_non_letters_checkbox_var = tk.BooleanVar()
+remove_non_letters_checkbox = ctk.CTkCheckBox(
+    window, 
+    text="Non-Letterss", 
+    variable=remove_non_letters_checkbox_var, 
+    command=toggle_remove_non_letters,
+    text_color=('#252525', '#f4f4f4'),
+    border_width=2,
+    border_color='#e6e6e6',
+    checkbox_height=20,
+    checkbox_width=20,
+    hover='#fff'
 )
-word_count_label.grid(row=6, column=1, padx=10, pady=5)
+remove_non_letters_checkbox.grid(row=3, column=1, padx=20, pady=5)
 
 window.mainloop()

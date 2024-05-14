@@ -11,10 +11,9 @@ RegExorcist is a tool designed to remove specific words and regular expressions 
 
 ## Usage
 
-1. Open the python code in Python.
-2. Edit the text you want to remove.
-3. Run.
-
-
-Thats all for now.
-
+1. Run the app.
+2. Browse a file.
+3. Give a name to the output file.
+4. (Optional) Choose one of the checkboxes
+5. (Optional) Add a specific word or character to remove.
+6. Run process

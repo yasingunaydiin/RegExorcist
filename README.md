@@ -1,3 +1,5 @@
+<img width="128px" src="regexorcist_logo" alt="Logo" align="left" />
+
 # RegExorcist
 
 RegExorcist is a tool designed to remove specific words and regular expressions from documents.

@@ -1,4 +1,4 @@
-<img width="128px" src="regexorcist_logo" alt="Logo" align="left" />
+<img width="128px" src="regexorcist_logo.png" alt="Logo" align="left" />
 
 # RegExorcist
 

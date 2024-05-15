@@ -66,11 +66,6 @@ window.title('RegExorcist')
 
 
 
-icon = tk.PhotoImage(file="regexorcist_logo.png")
-window.iconphoto(True, icon)
-
-
-
 # Calculate the screen width and height
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -221,7 +216,7 @@ remove_numbers_checkbox.grid(row=3, column=0, padx=10, pady=5)
 remove_non_letters_checkbox_var = tk.BooleanVar()
 remove_non_letters_checkbox = ctk.CTkCheckBox(
     window, 
-    text="Non-Letterss", 
+    text="Non-Letters", 
     variable=remove_non_letters_checkbox_var, 
     command=toggle_remove_non_letters,
     text_color=('#252525', '#f4f4f4'),
